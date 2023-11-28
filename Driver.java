@@ -1,0 +1,282 @@
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
+import javax.swing.JList;
+
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+
+import PointOfSaleSystem.*;
+import Map.*;
+
+public class Driver {
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		//pre-add some employees, clock-in times, and hours worked
+		//pre-add some online orders		
+
+		        JFrame frame = new JFrame("TopLevelDemo");
+		        frame.setLayout(new FlowLayout());
+		        frame.setPreferredSize(new Dimension(500, 500));
+		        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		       
+		        DefaultListModel<String> listModel = new DefaultListModel<String>();
+		        listModel.addElement("Employee");
+		        listModel.addElement("Customer");
+		        
+		        JList<String> list = new JList<String>(listModel);
+		        frame.getContentPane().add(list);
+		        
+		        DefaultListModel<String> listModelTwo = new DefaultListModel<String>();
+        		listModelTwo.addElement("New employee registration");
+        		listModelTwo.addElement("Clock in");
+        		listModelTwo.addElement("back");		        		      
+        		
+        		JList<String> listTwo = new JList<String>(listModelTwo);
+        		
+        		DefaultListModel<String> listModelThree = new DefaultListModel<String>();
+         		listModelThree.addElement("Checkout");
+         		listModelThree.addElement("Pickup");
+         		listModelThree.addElement("back");	
+         		
+         		JList<String> listThree = new JList<String>(listModelThree);
+         		
+         		DefaultListModel<String> listModelFour = new DefaultListModel<String>();
+         		listModelFour.addElement("Fulfill Next Order");
+         		listModelFour.addElement("back");	
+         		
+         		JList<String> listFour = new JList<String>(listModelFour);
+         		
+         		DefaultListModel<String> listModelFive = new DefaultListModel<String>();
+         		listModelFive.addElement("Add Item to Cart");
+         		listModelFive.addElement("Cancel Order");
+         		listModelFive.addElement("Place Online Order");
+         		listModelFive.addElement("Checkout");
+         		listModelFive.addElement("back");	
+         		
+         		JList<String> listFive = new JList<String>(listModelFive);
+         		
+         		Cart cart = new Cart();
+         		ArrayList<MapBase<String,Double>.Record<String,Double>> prods = cart.getAvailableProducts();
+		        DefaultListModel<String> listModelSix = new DefaultListModel<String>();
+		        for(MapBase<String,Double>.Record<String,Double> prod : prods) {
+		        	listModelSix.addElement("" + prod.key + " $" + prod.value);
+		        }
+		        listModelSix.addElement("Banana");
+         		listModelSix.addElement("Milk");
+         		listModelSix.addElement("Orange Juice");
+         		listModelSix.addElement("Apples");
+         		listModelSix.addElement("Chicken");
+		        
+		        JList<String> listSix = new JList<String>(listModelSix);
+
+		        MouseListener eventListener = new MouseAdapter() {
+		            public void mouseClicked(MouseEvent e) {
+		                if (e.getClickCount() == 2) {
+		                    int index = list.locationToIndex(e.getPoint());
+		                    switch(index){
+		                    	case(0):
+		        		        	frame.getContentPane().remove(list);
+		        		        	frame.getContentPane().add(listTwo);
+		        		        	frame.setVisible(false); 
+		        		        	frame.setVisible(true);
+		                    		break;
+		                    	case(1):		                    		
+		                    		frame.getContentPane().remove(list);
+        		        			frame.getContentPane().add(listThree);
+        		        			frame.setVisible(false); 
+        		        			frame.setVisible(true);
+		                    		break;
+		                    	default:
+		                    		break;
+		                    
+		                    }
+		                 }
+		            }
+		        };
+		        
+		        list.addMouseListener(eventListener);
+		        
+		        MouseListener eventListenerTwo = new MouseAdapter() {
+		            public void mouseClicked(MouseEvent e) {
+		                if (e.getClickCount() == 2) {
+		                    int index = listTwo.locationToIndex(e.getPoint());
+		                    switch(index){
+		                    	case(0):
+		                    		System.out.println("Please enter your name:");
+		                    		String name = scan.next();
+		                    		System.out.println("Please pick a username:");
+		                    		String user = scan.next();
+		                    		System.out.println("Please pick a password:");
+		                    		String pw = scan.next();
+		                    		System.out.println("Please enter your hourly payrate:");
+		                    		String rate = scan.next();
+		        		        		
+		                    		
+		                    			//create a new user with this
+		                    			//add to employee table
+		                    			//confirm user was created
+		                    		break;
+		                    	case(1):
+		                    		System.out.println("Please enter your username:");
+                    				String un = scan.next();
+                    				System.out.println("Please enter your password:");
+                    				String pass = scan.next();
+                    				System.out.println("Please enter your hours for this shift");
+                    				Integer hours = scan.nextInt();
+		                			
+                    				//validate login
+                    				//state no username/pw match if no match
+                    				//if successful
+                					//display hours worked & pay due this period
+                					//button option fulfill next online order
+                						//remove from top of queue
+                						//display the order name, items, and total
+                    				frame.getContentPane().remove(listTwo);
+        		        			frame.getContentPane().add(listFour);
+        		        			frame.setVisible(false); 
+        		        			frame.setVisible(true);
+		                    		break;
+		                    	case(2):		                    		
+		                    		frame.getContentPane().remove(listTwo);
+        		        			frame.getContentPane().add(list);
+        		        			frame.setVisible(false); 
+        		        			frame.setVisible(true);
+		                    		break;
+		                    	default:
+		                    		break;
+		                    
+		                    }
+		                 }
+		            }
+		        };
+		        
+		      
+		        listTwo.addMouseListener(eventListenerTwo);  
+		        
+		        MouseListener eventListenerThree = new MouseAdapter() {
+		            public void mouseClicked(MouseEvent e) {
+		                if (e.getClickCount() == 2) {
+		                    int index = listThree.locationToIndex(e.getPoint());		                 
+		                    switch(index){
+		                    	case(0):	
+		                    		frame.getContentPane().remove(listThree);
+		                    		frame.getContentPane().add(listFive);
+		                    		frame.getContentPane().add(listSix);
+		                    		frame.setVisible(false); 
+		                    		frame.setVisible(true);                 
+		                    		break;
+		                    	case(1):
+		                    		System.out.println("Please enter your name");
+	                    			String pickupName = scan.next();	                    		
+	                    		
+	                    			//find order from online order queue
+	                    				// Order ord =
+	                    			//use cart.setOrder(ord) to add order to cart
+	                    			//checkout with cart.checkout()
+
+		                    		break;
+		                    	case(2):
+		                    		frame.getContentPane().remove(listThree);
+		        					frame.getContentPane().add(list);
+		        					frame.setVisible(false); 
+		        					frame.setVisible(true);
+		                    		break;
+		                    	default:
+		                    		break;
+		                    
+		                    }
+		                 }
+		            }
+		        };
+		        
+		      
+		        listThree.addMouseListener(eventListenerThree);
+		        
+		        MouseListener eventListenerFour = new MouseAdapter() {
+		            public void mouseClicked(MouseEvent e) {
+		                if (e.getClickCount() == 2) {
+		                    int index = listFour.locationToIndex(e.getPoint());
+		                    switch(index){
+		                    	case(0):
+		        		        	//retrieve next order to be fulfilled from priority queue
+		                    		//print out the name and time due
+		                    		//print out the items & prices & total from the order
+		        		        	frame.setVisible(false); 
+		        		        	frame.setVisible(true);
+		                    		break;
+		                    	case(1):		                    		
+		                    		frame.getContentPane().remove(listFour);
+        		        			frame.getContentPane().add(listTwo);
+        		        			frame.setVisible(false); 
+        		        			frame.setVisible(true);
+		                    		break;
+		                    	default:
+		                    		break;
+		                    
+		                    }
+		                 }
+		            }
+		        };
+		        
+		        listFour.addMouseListener(eventListenerFour);
+		        
+		        MouseListener eventListenerFive = new MouseAdapter() {
+		            public void mouseClicked(MouseEvent e) {
+		                if (e.getClickCount() == 2) {
+		                    int index = listFive.locationToIndex(e.getPoint());
+		                    switch(index){
+		                    	case(0):
+		                    		System.out.println("Please enter the item one of the items from the list that you would like to add to your cart: ");
+		                    		String item = scan.next();
+		                    		cart.addProduct(item);
+		                    		break;
+		                    	case(1):
+		                    		cart.voidTransaction();
+		                    		break;
+		                    	case(2):
+		                    		cart.setOnline();		                    		
+                    				System.out.println("Please enter your name");
+                    				String customer = scan.next();
+                    				System.out.println("Please enter the time you would like to pickup your order in miltary time 1-24");
+                    				Integer time = scan.nextInt();                   				
+                    				cart.placeOrder(customer,  time);
+		                    		break;
+		                    	case(3):
+		                    		System.out.println("Enter the cash amount you are paying");
+		                    		Double cash = scan.nextDouble();
+		                    		cart.checkout(cash);
+		                    		break;
+		                    	case(4):
+		                    		frame.getContentPane().remove(listFive);
+		                    		frame.getContentPane().remove(listSix);
+    		        				frame.getContentPane().add(listThree);
+    		        				frame.setVisible(false); 
+    		        				frame.setVisible(true);
+		                    		break;
+		                    	default:
+		                    		break;
+		                    
+		                    }
+		                 }
+		            }
+		        };
+		        
+		        listFive.addMouseListener(eventListenerFive);
+		        
+		        //Display the window.
+		        frame.pack();
+		        frame.setVisible(true);
+		
+						
+		
+		//print all workers, their time worked time worked, and wages earned
+		//print all orders still in the queue
+	}
+}
