@@ -14,12 +14,26 @@ import java.awt.FlowLayout;
 
 import PointOfSaleSystem.*;
 import Map.*;
+import Payroll.Employee;
+import Payroll.Employees;
 
 public class Driver {
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
+		
 		//pre-add some employees, clock-in times, and hours worked
+		Employees employeeTable = new Employees();
+		Employee employeeZach = new Employee();
+		employeeZach.setUsername("ZachIsMe");
+		employeeZach.setEmployeeName("Zach Driggers");
+		employeeZach.setPassword("Zach123!");
+		employeeZach.setHourlyRate(15.00);
+		employeeZach.setClockedIn(true);
+		employeeTable.addEmployee(employeeZach.getUsername(), employeeZach);
+		
+		
 		//pre-add some online orders		
+		
 
 		        JFrame frame = new JFrame("TopLevelDemo");
 		        frame.setLayout(new FlowLayout());
@@ -109,6 +123,8 @@ public class Driver {
 		                    int index = listTwo.locationToIndex(e.getPoint());
 		                    switch(index){
 		                    	case(0):
+		                    		
+		                    		Employee newEmployee = new Employee();
 		                    		System.out.println("Please enter your name:");
 		                    		String name = scan.next();
 		                    		System.out.println("Please pick a username:");
@@ -116,12 +132,21 @@ public class Driver {
 		                    		System.out.println("Please pick a password:");
 		                    		String pw = scan.next();
 		                    		System.out.println("Please enter your hourly payrate:");
-		                    		String rate = scan.next();
-		        		        		
+		                    		double rate = scan.nextDouble();
+		        		        	
+		                    		//create a new user with this
+	                    			//add to employee table
+	                    			//confirm user was created
+		                    		newEmployee.setEmployeeName(name);
+		                    		newEmployee.setUsername(user);
+		                    		newEmployee.setPassword(pw);
+		                    		newEmployee.setHoursWorked(rate);
+		                    		employeeTable.addEmployee(user, newEmployee);
 		                    		
-		                    			//create a new user with this
-		                    			//add to employee table
-		                    			//confirm user was created
+		                    		if(employeeTable.getEmployee(user) != null)
+		                    			System.out.println("Employee " + name + " has successfully been added.");
+		                    		
+		                    			
 		                    		break;
 		                    	case(1):
 		                    		System.out.println("Please enter your username:");
@@ -132,9 +157,27 @@ public class Driver {
                     				Integer hours = scan.nextInt();
 		                			
                     				//validate login
+                    				Employee existingEmployee = employeeTable.getEmployee(un);
                     				//state no username/pw match if no match
+                    				if(existingEmployee == null)
+                    				{
+                    					System.out.println("Employee not found");
+                    					return;
+                    				}
+                    				
+                    				if(!existingEmployee.getPassword().equals(pass))
+                    				{
+                    					System.out.println("Incorrect password");
+                    					return;
+                    				}
+                    				
                     				//if successful
                 					//display hours worked & pay due this period
+                    				System.out.println("Hours worked : " + existingEmployee.getHoursWorked());
+                    				System.out.println("Pay due : " + existingEmployee.calculatePay());
+                    					
+                    				
+                    				
                 					//button option fulfill next online order
                 						//remove from top of queue
                 						//display the order name, items, and total
