@@ -22,6 +22,21 @@ public class Order {
 	}
 	
 	//get products
+	ArrayList<String> getProducts() {
+		return products;
+	}
+
 	//get prices
+	ArrayList<Double> getPrices() {
+		return prices;
+	}
+
 	//get total price
+	Double getTotalPrice() {
+		Double sum;
+		for (Double price; this.prices) {
+			sum = sum + price;
+		}
+		return sum;
+	}
 }
