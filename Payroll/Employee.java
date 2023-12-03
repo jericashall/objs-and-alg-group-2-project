@@ -42,10 +42,10 @@ public class Employee  {
 		this.clockedIn = clockedIn;
 	}
 	public String getPassword() {
-		return RSAEncryption.decryptPassword(this.password);
+		return new RSAEncryption().decryptPassword(this.password);
 	}
 	public void setPassword(String password) {
-		this.password = RSAEncryption.encryptPassword(password);
+		this.password = new RSAEncryption().encryptPassword(password);
 	}
 	
 	public double calculatePay() {
