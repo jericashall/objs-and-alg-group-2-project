@@ -27,7 +27,14 @@ public class Orders {
     }
 
 	//fulfill order
-		//update to show ready for sale
+    void fullfillOrder(String name) {
+        this.order.get(name).fulfilled = true;
+    }
+
+    //update to show ready for sale
+    void completeOrder(String name) {
+        this.order.get(name).active = false;
+    }
 	
 	
 }

@@ -2,7 +2,7 @@ package OnlineOrderingQueue;
 
 import java.util.ArrayList;
 
-public class Order {
+public class Order implements Comparable<Order> {
 	int pickupTime;
 	String name;
 	ArrayList<String> products;
@@ -38,5 +38,16 @@ public class Order {
 			sum = sum + price;
 		}
 		return sum;
+	}
+
+	// comparable interface implementation
+	@Override
+	public int compareTo(Order anotherOrder) {
+		return (this.order.time > anotherOrder.time) ? 1 : ((this.order.time < anotherOrder.time) ? -1 : 0);
+	}
+
+	@Override
+	public String toString() {
+		return pickupTime + ", " + name + ", " + price;
 	}
 }
