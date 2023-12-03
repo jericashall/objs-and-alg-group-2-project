@@ -3,11 +3,11 @@ package OnlineOrderingQueue;
 import java.util.ArrayList;
 
 public class Order implements Comparable<Order> {
-	int pickupTime;
-	String name;
+	public int pickupTime;
+	public String name;
 	ArrayList<String> products;
 	ArrayList<Double> prices;
-	Double price;
+	public Double price;
 	boolean fulfilled;
 	boolean active;
 	

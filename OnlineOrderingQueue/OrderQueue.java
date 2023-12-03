@@ -22,7 +22,7 @@ public class OrderQueue {
     }
 
 	//remove from top of queue
-    void removeNextOrder() {
+    public Order removeNextOrder() {
         //print order
         Order nextOrder = this.uncompletedOrders.deleteMin();
 
@@ -31,6 +31,8 @@ public class OrderQueue {
 
         //add to orders map
         this.completedOrders.addOrder(nextOrder);
+        
+        return nextOrder;
 
 
     }

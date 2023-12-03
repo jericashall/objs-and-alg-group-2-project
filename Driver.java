@@ -14,6 +14,8 @@ import java.awt.FlowLayout;
 
 import PointOfSaleSystem.*;
 import Map.*;
+import OnlineOrderingQueue.Order;
+import OnlineOrderingQueue.OrderQueue;
 import Payroll.Employee;
 import Payroll.Employees;
 
@@ -154,7 +156,9 @@ public class Driver {
                     				System.out.println("Please enter your password:");
                     				String pass = scan.next();
                     				System.out.println("Please enter your hours for this shift");
-                    				Integer hours = scan.nextInt();
+                    				double hours = scan.nextDouble();
+                    				
+                    				
 		                			
                     				//validate login
                     				Employee existingEmployee = employeeTable.getEmployee(un);
@@ -171,11 +175,13 @@ public class Driver {
                     					return;
                     				}
                     				
+                    				existingEmployee.setClockedIn(true);
+                    				existingEmployee.setHoursWorked(hours);
+                    				
                     				//if successful
                 					//display hours worked & pay due this period
                     				System.out.println("Hours worked : " + existingEmployee.getHoursWorked());
-                    				System.out.println("Pay due : " + existingEmployee.calculatePay());
-                    					
+                    				System.out.println("Pay due : " + existingEmployee.calculatePay());                   					
                     				
                     				
                 					//button option fulfill next online order
@@ -251,6 +257,14 @@ public class Driver {
 		        		        	//retrieve next order to be fulfilled from priority queue
 		                    		//print out the name and time due
 		                    		//print out the items & prices & total from the order
+		                    		OrderQueue orderQueue = new OrderQueue();
+		                    		Order order = orderQueue.removeNextOrder();
+		                    		String orderName = order.name;
+		                    		int pickupTime = order.pickupTime;
+		                    		
+		                    		System.out.println("Order : " + orderName 
+		                    				+ " pickup time is " + pickupTime);		                    		
+		                    		
 		        		        	frame.setVisible(false); 
 		        		        	frame.setVisible(true);
 		                    		break;
