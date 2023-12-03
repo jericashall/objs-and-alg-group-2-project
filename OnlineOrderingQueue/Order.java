@@ -33,8 +33,8 @@ public class Order implements Comparable<Order> {
 
 	//get total price
 	Double getTotalPrice() {
-		Double sum;
-		for (Double price; this.prices) {
+		Double sum = 0.0;
+		for (Double price : this.prices) {
 			sum = sum + price;
 		}
 		return sum;
@@ -43,7 +43,7 @@ public class Order implements Comparable<Order> {
 	// comparable interface implementation
 	@Override
 	public int compareTo(Order anotherOrder) {
-		return (this.order.time > anotherOrder.time) ? 1 : ((this.order.time < anotherOrder.time) ? -1 : 0);
+		return (this.pickupTime > anotherOrder.pickupTime) ? 1 : ((this.pickupTime < anotherOrder.pickupTime) ? -1 : 0);
 	}
 
 	@Override

@@ -1,4 +1,4 @@
-package Lab4;
+package OnlineOrderingQueue;
 
 import java.util.ArrayList;
 public class Heap<T> {
@@ -96,9 +96,9 @@ public class Heap<T> {
 
     @Override
     public String toString() {
-        String output;
+        String output = "";
         for (T value : this.values) {
-            output = output + value.toString() + "\n"
+            output = output + value.toString() + "\n";
         }
         return output;
     }

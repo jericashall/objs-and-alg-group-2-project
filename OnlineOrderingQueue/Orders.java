@@ -6,8 +6,8 @@ public class Orders {
 	//name as the key
     private HashMap<String, Order> orders;
 
-    public Orders {
-        this.orders = new HashMap<String, Order>;
+    public Orders() {
+        this.orders = new HashMap<String, Order>();
     }
 	
 	//add order
@@ -28,12 +28,12 @@ public class Orders {
 
 	//fulfill order
     void fullfillOrder(String name) {
-        this.order.get(name).fulfilled = true;
+        this.orders.get(name).fulfilled = true;
     }
 
     //update to show ready for sale
     void completeOrder(String name) {
-        this.order.get(name).active = false;
+        this.orders.get(name).active = false;
     }
 	
 	

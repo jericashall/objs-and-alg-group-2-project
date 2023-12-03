@@ -7,7 +7,7 @@ public class OrderQueue {
     private Orders completedOrders;
 
     public OrderQueue() {
-        this.uncompletedOrders = new Heap<Order>;
+        this.uncompletedOrders = new Heap<Order>();
         this.completedOrders = new Orders();
     }
 		
@@ -30,7 +30,7 @@ public class OrderQueue {
         System.out.println("Fulfilled: " + nextOrder);
 
         //add to orders map
-        this.completedOrders.addOrder(order.name, order);
+        this.completedOrders.addOrder(nextOrder);
 
 
     }
