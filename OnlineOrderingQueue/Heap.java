@@ -1,14 +1,14 @@
 package OnlineOrderingQueue;
 
 import java.util.ArrayList;
-public class Heap<T> {
+public class Heap<T extends Comparable<T>> {
 
     private ArrayList<T> values;
     private void percolateUp(T value) {
         int i = size();
         this.values.add(value);
 
-        while (i != 0 && ((int) this.values.get(i) < (int) this.values.get(parent(i)))) {
+        while (i != 0 && (this.values.get(i).compareTo(this.values.get(parent(i))) < 0 )) {
             swap(i, parent(i));
             i = parent(i);
         }
@@ -21,22 +21,22 @@ public class Heap<T> {
         }
 
         if (size() == 2) {
-            int indexValue = (int) this.values.get(index);
-            int leftValue = (int) this.values.get(left(index));
+            T indexValue = this.values.get(index);
+            T leftValue = this.values.get(left(index));
 
-            if (indexValue > leftValue) {
+            if (indexValue.compareTo(leftValue) > 0) {
                 swap(index, left(index));
                 index = left(index);
             }
             return;
         }
 
-        int indexValue = (int) this.values.get(index);
-        int leftValue = (int) this.values.get(left(index));
-        int rightValue = (int) this.values.get(right(index));
+        T indexValue = this.values.get(index);
+        T leftValue = this.values.get(left(index));
+        T rightValue = this.values.get(right(index));
 
-        while (((indexValue > rightValue) || (indexValue > leftValue)) && (left(index) < size())) {
-            if (leftValue <= rightValue) {
+        while (((indexValue.compareTo(rightValue) > 0) || (indexValue.compareTo(leftValue) > 0)) && (left(index) < size())) {
+            if (leftValue.compareTo(rightValue) <= 0) {
                 swap(index, left(index));
                 index = left(index);
             } else {
@@ -45,11 +45,12 @@ public class Heap<T> {
             }
 
             try {
-                indexValue = (int) this.values.get(index);
-                leftValue = (int) this.values.get(left(index));
-                rightValue = (int) this.values.get(right(index));
+                indexValue = this.values.get(index);
+                leftValue = this.values.get(left(index));
+                rightValue = this.values.get(right(index));
             } catch(Exception e) {
-                rightValue = rightValue * 1000;
+                System.out.println(e);
+                // rightValue = rightValue * 1000;
             };
         }
     };
