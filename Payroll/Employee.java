@@ -1,5 +1,7 @@
 package Payroll;
 
+import java.math.BigInteger;
+
 public class Employee  {
 	
 	private String username = "";
@@ -7,7 +9,7 @@ public class Employee  {
 	private double hoursWorked = 0.0;
 	private double hourlyRate = 0.0;
 	private boolean clockedIn = false;
-	private String password = "";
+	private BigInteger[] password = null;
 	
 	public String getUsername() {
 		return username;
@@ -40,10 +42,10 @@ public class Employee  {
 		this.clockedIn = clockedIn;
 	}
 	public String getPassword() {
-		return password;
+		return RSAEncryption.decryptPassword(this.password);
 	}
 	public void setPassword(String password) {
-		this.password = password;
+		this.password = RSAEncryption.encryptPassword(password);
 	}
 	
 	public double calculatePay() {
