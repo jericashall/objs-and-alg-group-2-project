@@ -1,7 +1,6 @@
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -139,13 +138,10 @@ public class Driver {
 						System.out.println("Please enter your hourly payrate:");
 						double rate = scan.nextDouble();
 
-						// create a new user with this
-						// add to employee table
-						// confirm user was created
 						newEmployee.setEmployeeName(name);
 						newEmployee.setUsername(user);
 						newEmployee.setPassword(pw);
-						newEmployee.setHoursWorked(rate);
+						newEmployee.setHourlyRate(rate);
 						employeeTable.addEmployee(user, newEmployee);
 
 						if (employeeTable.getEmployee(user) != null)
@@ -160,9 +156,9 @@ public class Driver {
 						System.out.println("Please enter your hours for this shift");
 						double hours = scan.nextDouble();
 
-						// validate login
+
 						Employee existingEmployee = employeeTable.getEmployee(un);
-						// state no username/pw match if no match
+
 						if (existingEmployee == null) {
 							System.out.println("Employee not found");
 							return;
@@ -176,14 +172,9 @@ public class Driver {
 						existingEmployee.setClockedIn(true);
 						existingEmployee.setHoursWorked(hours);
 
-						// if successful
-						// display hours worked & pay due this period
 						System.out.println("Hours worked : " + existingEmployee.getHoursWorked());
 						System.out.println("Pay due : " + existingEmployee.calculatePay());
 
-						// button option fulfill next online order
-						// remove from top of queue
-						// display the order name, items, and total
 						frame.getContentPane().remove(listTwo);
 						frame.getContentPane().add(listFour);
 						frame.setVisible(false);
@@ -251,6 +242,12 @@ public class Driver {
 					case (0):
 
 						Order order = orderQueue.removeNextOrder();
+						
+						if (order == null) {
+							System.out.println("No orders to be fulfilled at this time.");
+							break;
+						}
+					
 						String orderName = order.name;
 						int pickupTime = order.pickupTime;
 						System.out.println("Order : " + orderName + " pickup time is " + pickupTime);

@@ -23,6 +23,9 @@ public class OrderQueue {
 
 	//remove from top of queue
     public Order removeNextOrder() {
+    	
+    	if(uncompletedOrders.size() == 0)
+    		return null;
         //print order
         Order nextOrder = this.uncompletedOrders.deleteMin();
 
