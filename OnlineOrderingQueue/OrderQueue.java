@@ -12,7 +12,7 @@ public class OrderQueue {
     }
 		
 	//add to queue
-    void addOrder(Order order) {
+    public void addOrder(Order order) {
         this.uncompletedOrders.insert(order);
     }
 

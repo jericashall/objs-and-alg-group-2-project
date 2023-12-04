@@ -5,29 +5,29 @@ import java.util.ArrayList;
 public class Order implements Comparable<Order> {
 	public int pickupTime;
 	public String name;
-	ArrayList<String> products;
-	ArrayList<Double> prices;
+	public String[] products;
+	public double[] prices;
 	public Double price;
 	boolean fulfilled;
 	boolean active;
 	
-	public Order(int time, String name, ArrayList<String> names, ArrayList<Double> prices, Double total) {
+	public Order(int time, String name, String[] names, double[] prices) {
 		pickupTime = time;
 		this.name = name;
 		products = names;
 		this.prices = prices;
-		price = total;
+		price = getTotalPrice();
 		fulfilled = false;
 		active = true;
 	}
 	
 	//get products
-	ArrayList<String> getProducts() {
+	String[] getProducts() {
 		return products;
 	}
 
 	//get prices
-	ArrayList<Double> getPrices() {
+	double[] getPrices() {
 		return prices;
 	}
 
