@@ -20,7 +20,10 @@ public class OrderQueue {
     void printOrders() {
         System.out.println(this.uncompletedOrders.toString());
     }
-
+    
+    public Order findOrder(String name) {
+    	return completedOrders.getOrder(name);
+    }
 	//remove from top of queue
     public Order removeNextOrder() {
     	

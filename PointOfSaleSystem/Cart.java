@@ -1,6 +1,7 @@
 package PointOfSaleSystem;
 
 import java.util.ArrayList;
+import OnlineOrderingQueue.*;
 
 import Map.MapBase;
 import OnlineOrderingQueue.Order;
@@ -10,6 +11,7 @@ public class Cart {
 	ArrayList<Double> prodPrices;
 	boolean online = false;
 	Products prodMap = new Products();
+	OrderQueue queue = new OrderQueue();
 	Double total = 0.0;
 	
 	public Cart() {
@@ -30,9 +32,9 @@ public class Cart {
 	}
 	
 	public void setOrder(Order ord) {
-		//prodNames = ord.getNames();
-		//priceNames = ord.getPrices();
-		//total = ord.getTotal();
+		prodNames = ord.getProducts();
+		prodPrices = ord.getPrices();
+		total = ord.getTotalPrice();
 	}
 	
 	public void printCart() {
@@ -61,12 +63,22 @@ public class Cart {
 	}
 
 	public void placeOrder(String name, int time) {
-		//create order
-		//add to priority queue
+		Order ord = new Order(time, name, prodNames, prodPrices);
+		queue.addOrder(ord);
+		
 		//add to map
 		System.out.println("Thank you for shopping with us, your order will be ready at " + time + ".");
 	}
-
+	
+	public void pickupOrder(String name) {
+		Order ord = queue.findOrder(name);
+		setOrder(ord);
+		System.out.println("Thank you for shopping with us! You have been charged " + total);
+	}
+	
+	public Order nextOrder() {
+		return queue.removeNextOrder();
+	}
 	
 	public void checkout(Double cash) {
 		Double amt = cash - total;

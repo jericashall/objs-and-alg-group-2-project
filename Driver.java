@@ -32,13 +32,6 @@ public class Driver {
 		employeeZach.setClockedIn(true);
 		employeeTable.addEmployee(employeeZach.getUsername(), employeeZach);
 
-		// pre-add some online orders
-		OrderQueue orderQueue = new OrderQueue();
-		String[] orderOneItems = new String[] { "banana", "apple", "chips" };
-		double[] orderOnePrices = new double[] { 10.00, 3.00, 5.00 };
-		Order orderOne = new Order(1300, "Steve's Order", orderOneItems, orderOnePrices);
-		orderQueue.addOrder(orderOne);
-
 		JFrame frame = new JFrame("TopLevelDemo");
 		frame.setLayout(new FlowLayout());
 		frame.setPreferredSize(new Dimension(500, 500));
@@ -212,10 +205,11 @@ public class Driver {
 						System.out.println("Please enter your name");
 						String pickupName = scan.next();
 
-						// find order from online order queue
-						// Order ord =
-						// use cart.setOrder(ord) to add order to cart
-						// checkout with cart.checkout()
+						if(pickupName == null) {
+							cart.pickupOrder(pickupName);
+						} else {
+							System.out.println("Sorry, we don't have a order ready for that name! Please create an order or wait for yours to be fulfilled.");
+						}
 
 						break;
 					case (2):
@@ -241,7 +235,7 @@ public class Driver {
 					switch (index) {
 					case (0):
 
-						Order order = orderQueue.removeNextOrder();
+						Order order = cart.nextOrder();
 						
 						if (order == null) {
 							System.out.println("No orders to be fulfilled at this time.");
@@ -253,9 +247,9 @@ public class Driver {
 						System.out.println("Order : " + orderName + " pickup time is " + pickupTime);
 						
 						System.out.println("Order contains the following items: ");
-						for(int i =0; i< order.products.length; i++)
+						for(int i =0; i< order.products.size(); i++)
 						{
-							System.out.println("item: " + order.products[i] + " price: " + order.prices[i]);
+							System.out.println("item: " + order.products.get(i) + " price: " + order.prices.get(i));
 						}
 						
 						System.out.println("Total cost is " + order.price);
